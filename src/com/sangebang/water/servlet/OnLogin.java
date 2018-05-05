@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONObject;
+
 import com.sangebang.water.util.Login;
 
 public class OnLogin extends HttpServlet {
@@ -44,6 +46,12 @@ public class OnLogin extends HttpServlet {
 		String userinfo = Login.sendGet(code);
 		HttpSession session = request.getSession();
 		session.setAttribute("code", code);
+		PrintWriter out = response.getWriter();
+		JSONObject json = JSONObject.fromObject(userinfo);
+		out.write(json.toString());
+		out.flush();
+		System.out.println(json);
+		
 	}
 
 }

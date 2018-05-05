@@ -52,7 +52,7 @@ public class Login {
                 e2.printStackTrace();  
             }  
         }  
-        System.out.println(result);
+        
         return result;  
     }
 }
