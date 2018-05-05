@@ -32,6 +32,11 @@
     <servlet-name>OnLogin</servlet-name>
     <servlet-class>com.sangebang.water.servlet.OnLogin</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>doUpload</servlet-name>
+    <servlet-class>com.sangebang.water.servlet.doUpload</servlet-class>
+  </servlet>
+
 
 
 
@@ -50,6 +55,10 @@
   <servlet-mapping>
     <servlet-name>OnLogin</servlet-name>
     <url-pattern>/OnLogin</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>doUpload</servlet-name>
+    <url-pattern>/doUpload.do</url-pattern>
   </servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

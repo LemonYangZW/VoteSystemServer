@@ -2,6 +2,11 @@ package com.sangebang.water.domain;
 
 import java.sql.Timestamp;
 
+/**
+ * @author Administrator
+ *
+ *发布者
+ */
 public class User {
 	private int id;	
 	private String tid; 			//任务编号
