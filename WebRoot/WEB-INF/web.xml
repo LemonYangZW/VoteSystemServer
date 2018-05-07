@@ -54,7 +54,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>OnLogin</servlet-name>
-    <url-pattern>/OnLogin</url-pattern>
+    <url-pattern>/OnLogin.do</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>doUpload</servlet-name>

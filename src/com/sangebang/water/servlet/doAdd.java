@@ -31,31 +31,27 @@ public class doAdd extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
+		//id tid 自动生成
 		String tname=request.getParameter("tname");
 		String tcontent=request.getParameter("tcontent");
+		String name=request.getParameter("name");
+		String phone=request.getParameter("phone");
 		int tnumber=Integer.parseInt(request.getParameter("tnumber"));
 		double price=Double.parseDouble(request.getParameter("price"));
-		System.out.println(tname);
-		System.out.println(tcontent);
-		System.out.println(tnumber);
-		System.out.println(price);
+		String url=request.getParameter("url");
 		User u = new User();
-		
+		java.util.Date date = new java.util.Date();								
+		Timestamp timeStamp = new Timestamp(date.getTime());
 		u.setTname(tname);
 		u.setTcontent(tcontent);
 		u.setTnumber(tnumber);
-		u.setName( "yangzhiwei");
-		u.setPhone("13419533738");
-		
-		
+		u.setName( name);
+		u.setPhone(phone);
 		u.setWxname((String)session.getAttribute("code"));
-		java.util.Date date = new java.util.Date();
-		Timestamp timeStamp = new Timestamp(date.getTime());
-		System.out.println(timeStamp);
 		u.setTm(timeStamp);
 		u.setStatus("待审核");
 		u.setPrice(price);
-		u.setUrl("http://www.baidu.com");
+		u.setUrl(url);
 		UserDao userdao = new UserDaoImpl();
 		userdao.Add(u);
 	}

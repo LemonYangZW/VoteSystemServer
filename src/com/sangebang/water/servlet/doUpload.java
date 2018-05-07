@@ -56,7 +56,7 @@ public class doUpload extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException { 
 		
-		String path = "D://";
+		String path = request.getRealPath("/Screen") + "\\";
 		System.out.println(path);
 	        File dir = new File(path);
 	        if (!dir.exists()) {
@@ -127,7 +127,8 @@ public class doUpload extends HttpServlet {
 	        response.setCharacterEncoding("utf-8");
 	        HashMap<String, Object> res = new HashMap<String, Object>();
 	        res.put("success", true);
-	        printWriter.write(JSON.toJSONString(res));
+//	        printWriter.write(JSON.toJSONString(res));
+	        printWriter.write(path);
 	        printWriter.flush();
 }
 }
