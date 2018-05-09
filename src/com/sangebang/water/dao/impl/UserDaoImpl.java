@@ -13,7 +13,8 @@ import com.sangebang.water.domain.User;
 import com.sangebang.water.util.DBHelp;
 
 public class UserDaoImpl implements UserDao{
-
+	
+	
 	public List<User> findAll() {
 		List<User> userlist = new CopyOnWriteArrayList<User>();
 		Connection con = DBHelp.getConnection();
@@ -73,20 +74,20 @@ public class UserDaoImpl implements UserDao{
 		Connection con = DBHelp.getConnection();
 		try {
 			PreparedStatement ps = con.prepareStatement
-			("update userinfo set tid=?,tname=?,tcontent=?,tnumber=?,name=?,phone=?,wxname=?,time=?,status=?,price=?,url=? where id =? ");
+			("update userinfo set tname=?,tcontent=?,tnumber=?,phone=?,status=?,price=?,url=? where tid =? ");
 			
-			ps.setString(1, u.getTid());
-			ps.setString(2, u.getTname());
-			ps.setString(3, u.getTcontent());
-			ps.setInt(4, u.getTnumber());
-			ps.setString(5, u.getName());
-			ps.setString(6, u.getPhone());
-			ps.setString(7, u.getWxname());
-			ps.setDate(8, new java.sql.Date(u.getTm().getTime()));
-			ps.setString(9, u.getStatus());	
-			ps.setDouble(10, u.getPrice());
-			ps.setString(11, u.getUrl());
-			ps.setInt(12, u.getId());
+//			ps.setString(1, u.getTid());
+			ps.setString(1, u.getTname());
+			ps.setString(2, u.getTcontent());
+			ps.setInt(3, u.getTnumber());
+//			ps.setString(4, u.getName());
+			ps.setString(4, u.getPhone());
+//			ps.setString(6, u.getWxname());
+//			ps.setDate(7, new java.sql.Date(u.getTm().getTime()));
+			ps.setString(5, u.getStatus());	
+			ps.setDouble(6, u.getPrice());
+			ps.setString(7, u.getUrl());
+			ps.setString(8, u.getTid());
 			ps.execute();
 			
 		} catch (SQLException e) {
@@ -96,11 +97,11 @@ public class UserDaoImpl implements UserDao{
 		}
 	}
 
-	public void Delete(int id) {
+	public void Delete(String tid) {
 		Connection con =DBHelp.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("delete from userinfo where id=?");
-			ps.setInt(1, id);
+			PreparedStatement ps = con.prepareStatement("delete from userinfo where tid=?");
+			ps.setString(1, tid);
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -173,8 +174,8 @@ public class UserDaoImpl implements UserDao{
 		List<User> userlist = new CopyOnWriteArrayList<User>();
 		Connection con = DBHelp.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("select * from userinfo where "+Type+" like ?");
-			ps.setString(1, "%"+SearchName+"%");
+			PreparedStatement ps = con.prepareStatement("select * from userinfo where "+Type+SearchName);
+//			ps.setString(1, SearchName);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				User u = new User();
@@ -232,4 +233,20 @@ public class UserDaoImpl implements UserDao{
 		return userlist;
 	}
 
+	
+	public void UpdateStatus(String tid,String status) {
+		Connection con = DBHelp.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement
+			("update userinfo set status=? where tid=? ");
+			ps.setString(1, status);
+			ps.setString(2, tid);
+			ps.execute();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			DBHelp.close(con);
+		}
+	}
 }

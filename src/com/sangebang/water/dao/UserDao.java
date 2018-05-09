@@ -11,7 +11,7 @@ public interface UserDao {
 	
 	public void Update(User user);
 	
-	public void Delete(int id);
+	public void Delete(String tid);
 	
 	public User findById (int id);
 	
@@ -20,4 +20,6 @@ public interface UserDao {
 	public List <User> findAllByName(String Type,String SearchName);
 	
 	public List <User> limitSerch(int pagestart,int pagesize,String Type,String SearchName);
+	
+	public void UpdateStatus (String tid,String status);
 }

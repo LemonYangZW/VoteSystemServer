@@ -55,7 +55,12 @@ public class doUpload extends HttpServlet {
 	private static final Logger logger = LoggerFactory.getLogger(doUpload.class);
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException { 
-		
+		response.setContentType("text/html;charset=utf-8");
+		/* 设置响应头允许ajax跨域访问 */
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		/* 星号表示所有的异域请求都可以接受， */
+		response.setHeader("Access-Control-Allow-Methods", "GET,POST");
+
 		String path = request.getRealPath("/Screen") + "\\";
 		System.out.println(path);
 	        File dir = new File(path);
