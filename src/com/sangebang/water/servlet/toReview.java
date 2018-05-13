@@ -52,7 +52,7 @@ public class toReview extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		UserDao userdao=new UserDaoImpl();
-		List<User> list = userdao.findAllByName("tid","=" ,"SGB2018050200001");
+		List<User> list = userdao.findAllByName("status","=" ,"´ýÉóºË");
 		System.out.println(list);
 		request.setAttribute("list", list);
 		
