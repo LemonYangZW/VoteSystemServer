@@ -17,7 +17,7 @@ public interface UserDao {
 	
 	public List <User> limit(int pagestart,int pagesize);
 	
-	public List <User> findAllByName(String Type,String SearchName);
+	public List <User> findAllByName(String Type,String sign,String SearchName);
 	
 	public List <User> limitSerch(int pagestart,int pagesize,String Type,String SearchName);
 	

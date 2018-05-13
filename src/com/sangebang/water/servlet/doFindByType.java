@@ -52,9 +52,10 @@ public class doFindByType extends HttpServlet {
 
 		String Type = request.getParameter("Type");
 		String SearchName = request.getParameter("SearchName");
+		String sign = request.getParameter("sign");
 		System.out.println(Type+SearchName);
 		UserDao userdao=new UserDaoImpl();
-		List<User> userlist = userdao.findAllByName(Type, SearchName);
+		List<User> userlist = userdao.findAllByName(Type,sign,SearchName);
 		PrintWriter out=response.getWriter();
 		for(int i=0;i<userlist.size();i++){
 			JSONObject json = JSONObject.fromObject(userlist.get(i).toString());

@@ -8,10 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sangebang.water.dao.UserDao;
-import com.sangebang.water.dao.impl.UserDaoImpl;
-
-public class UpdateStatus extends HttpServlet {
+public class AdminLogin extends HttpServlet {
 
 	/**
 	 * The doGet method of the servlet. <br>
@@ -25,7 +22,7 @@ public class UpdateStatus extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doPost(request, response);
+		doGet(request, response);
 	}
 
 	/**
@@ -40,11 +37,15 @@ public class UpdateStatus extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String tid = request.getParameter("tid");
-		String status = request.getParameter("status");
-		System.out.println("upstatus");
-		UserDao userdao=new UserDaoImpl();
-		userdao.UpdateStatus(tid, status);
+		String username = request.getParameter("userName");
+		String password = request.getParameter("password");
+		
+		
+		if(username.equals("Admin")&&password.equals("whbx123!@#")){
+			request.getRequestDispatcher("toReview.do").forward(request, response);
+		}else{
+			request.getRequestDispatcher("error.jsp").forward(request, response);
+		}
 	}
 
 }
