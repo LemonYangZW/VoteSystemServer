@@ -7,14 +7,14 @@
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+			+ request.getServerName() 
+			+ path;
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<base href="<%=basePath%>">
+<base href="https://www.333bang.com/VoteSystemServer/">
 
 <title>My JSP 'Review.jsp' starting page</title>
 

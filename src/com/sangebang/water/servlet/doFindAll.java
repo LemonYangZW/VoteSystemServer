@@ -11,9 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
-
-
-
 import com.sangebang.water.dao.UserDao;
 import com.sangebang.water.dao.impl.UserDaoImpl;
 import com.sangebang.water.domain.User;

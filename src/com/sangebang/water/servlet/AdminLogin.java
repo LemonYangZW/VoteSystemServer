@@ -1,7 +1,6 @@
 package com.sangebang.water.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,7 +40,7 @@ public class AdminLogin extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		
-		if(username.equals("Admin")&&password.equals("whbx123!@#")){
+		if("Admin".equals(username)&&"whbx123!@#".equals(password)){
 			request.getRequestDispatcher("toReview.do").forward(request, response);
 		}else{
 			request.getRequestDispatcher("error.jsp").forward(request, response);

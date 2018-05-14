@@ -2,10 +2,6 @@ package com.sangebang.water.servlet;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +15,6 @@ import com.sangebang.water.dao.impl.MessageImpl;
 import com.sangebang.water.dao.impl.UserDaoImpl;
 import com.sangebang.water.domain.Message;
 import com.sangebang.water.domain.User;
-import com.sangebang.water.util.Login;
 
 public class doAdd extends HttpServlet {
 	@Override
