@@ -10,26 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
-import redis.clients.jedis.Jedis;
 
-import com.sangebang.water.util.GetUUID;
 import com.sangebang.water.util.Login;
 
 public class OnLogin extends HttpServlet {
 
 	/**
 	 * The doGet method of the servlet. <br>
-	 * 
+	 *
 	 * This method is called when a form has its tag value method equals to get.
 	 * 
-	 * @param request
-	 *            the request send by the client to the server
-	 * @param response
-	 *            the response send by the server to the client
-	 * @throws ServletException
-	 *             if an error occurred
-	 * @throws IOException
-	 *             if an error occurred
+	 * @param request the request send by the client to the server
+	 * @param response the response send by the server to the client
+	 * @throws ServletException if an error occurred
+	 * @throws IOException if an error occurred
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -38,18 +32,13 @@ public class OnLogin extends HttpServlet {
 
 	/**
 	 * The doPost method of the servlet. <br>
+	 *
+	 * This method is called when a form has its tag value method equals to post.
 	 * 
-	 * This method is called when a form has its tag value method equals to
-	 * post.
-	 * 
-	 * @param request
-	 *            the request send by the client to the server
-	 * @param response
-	 *            the response send by the server to the client
-	 * @throws ServletException
-	 *             if an error occurred
-	 * @throws IOException
-	 *             if an error occurred
+	 * @param request the request send by the client to the server
+	 * @param response the response send by the server to the client
+	 * @throws ServletException if an error occurred
+	 * @throws IOException if an error occurred
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -58,34 +47,19 @@ public class OnLogin extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		/* 星号表示所有的异域请求都可以接受， */
 		response.setHeader("Access-Control-Allow-Methods", "GET,POST");
-		Jedis jedis = new Jedis("193.112.185.121", 6379);
+
 		String code = request.getParameter("code");
-		String session_id = null;
 		String userinfo = Login.sendGet(code);
 		PrintWriter out = response.getWriter();
 		JSONObject json = JSONObject.fromObject(userinfo);
 		HttpSession session = request.getSession();
 		String str = json.values().toString();
-		String openidStr = str
-				.substring(str.indexOf(',') + 2, str.indexOf(']'));
-		String sessionkeyStr = str.substring(str.indexOf('[') + 1,
-				str.indexOf(','));
-		session.setAttribute("openid", openidStr);
-
-		if (jedis.exists(openidStr + sessionkeyStr)) {
-			session_id = jedis.get(openidStr + sessionkeyStr);
-			jedis.expire(openidStr + sessionkeyStr, 86400);
-			System.out.println("已存在");
-		} else {
-			jedis.set(openidStr + sessionkeyStr, GetUUID.getUUID());
-			session_id = jedis.get(openidStr + sessionkeyStr);
-			System.out.println("插入redis");
-		}
-		String data = "{\"session_id\":\"" + session_id + "\"}";
-		out.write(data);
+		session.setAttribute("openid",str.substring(str.indexOf(',')+1, str.indexOf(']')));
+		System.out.println(str.substring(str.indexOf(',')+1, str.indexOf(']')));
+		out.write(json.toString());
 		out.flush();
-		out.close();
-
+		System.out.println(json);
+		
 	}
 
 }

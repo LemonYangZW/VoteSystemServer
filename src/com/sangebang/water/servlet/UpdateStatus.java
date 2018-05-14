@@ -48,23 +48,20 @@ public class UpdateStatus extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String tid=request.getParameter("tid");
-		String status = request.getParameter("status");
-		System.out.println("uostatus");
-		System.out.println(tid);
-		System.out.println(status);
+		String status = request.getParameter("statuts");
 		UserDao userdao=new UserDaoImpl();
 		MessageDao mesdao=new MessageImpl();
 		HttpSession session = request.getSession();
 		 
 		userdao.UpdateStatus(tid, status);
 		
-//		Timestamp timeStamp = new Timestamp(new java.util.Date().getTime());
-//		Message mes=new Message();
-//		mes.setReceive((String)session.getAttribute("openid"));
-//		mes.setContent(status);
-//		mes.setTm(timeStamp);
-//		
-//		mesdao.add(mes);
+		Timestamp timeStamp = new Timestamp(new java.util.Date().getTime());
+		Message mes=new Message();
+		mes.setReceive((String)session.getAttribute("openid"));
+		mes.setContent(status);
+		mes.setTm(timeStamp);
+		
+		mesdao.add(mes);
 	}
 
 }
