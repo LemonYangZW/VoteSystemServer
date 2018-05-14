@@ -115,7 +115,6 @@ public class User {
 		this.price = price;
 		this.url = url;
 	}
-	@Override
 	//重写toString 为JSON格式
 	public String toString() {
 		return "{\"id\":\"" + id + "\",\"tid\":\"" + tid + "\",\"tname\":\""
