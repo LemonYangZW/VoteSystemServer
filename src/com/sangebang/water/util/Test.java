@@ -16,15 +16,5 @@ public class Test {
         System.out.println("连接成功");
         //查看服务是否运行
         System.out.println("服务正在运行: "+jedis.ping());
-        
-        
-        Set<String> keys = jedis.keys("*"); 
-        Iterator<String> it=keys.iterator() ;   
-        while(it.hasNext()){   
-            String key = it.next();   
-            System.out.println(key); 
-            jedis.del(key);
-            
-	}
 }	
 }
