@@ -235,6 +235,7 @@ public class UserDaoImpl implements UserDao{
 
 	
 	public void UpdateStatus(String tid,String status) {
+		//shuom
 		Connection con = DBHelp.getConnection();
 		try {
 			PreparedStatement ps = con.prepareStatement

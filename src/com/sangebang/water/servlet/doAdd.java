@@ -13,8 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sangebang.water.dao.MessageDao;
 import com.sangebang.water.dao.UserDao;
+import com.sangebang.water.dao.impl.MessageImpl;
 import com.sangebang.water.dao.impl.UserDaoImpl;
+import com.sangebang.water.domain.Message;
 import com.sangebang.water.domain.User;
 import com.sangebang.water.util.Login;
 
@@ -53,12 +56,19 @@ public class doAdd extends HttpServlet {
 		u.setTnumber(tnumber);
 		u.setName( name);
 		u.setPhone(phone);
-		u.setWxname((String)session.getAttribute("code"));
+		u.setWxname((String)session.getAttribute("openid"));
 		u.setTm(timeStamp);
 		u.setStatus("´ýÉóºË");
 		u.setPrice(price);
 		u.setUrl(url);
 		UserDao userdao = new UserDaoImpl();
 		userdao.Add(u);
+		
+		Message mes=new Message();
+		mes.setReceive((String)session.getAttribute("openid"));
+		mes.setContent("´ýÉóºË");
+		mes.setTm(timeStamp);
+		MessageDao mesdao=new MessageImpl();
+		mesdao.add(mes);
 	}
 }

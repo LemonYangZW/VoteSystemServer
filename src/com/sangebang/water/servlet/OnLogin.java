@@ -50,10 +50,12 @@ public class OnLogin extends HttpServlet {
 
 		String code = request.getParameter("code");
 		String userinfo = Login.sendGet(code);
-		HttpSession session = request.getSession();
-		session.setAttribute("code", code);
 		PrintWriter out = response.getWriter();
 		JSONObject json = JSONObject.fromObject(userinfo);
+		HttpSession session = request.getSession();
+		String str = json.values().toString();
+		session.setAttribute("openid",str.substring(str.indexOf(',')+1, str.indexOf(']')));
+		System.out.println(str.substring(str.indexOf(',')+1, str.indexOf(']')));
 		out.write(json.toString());
 		out.flush();
 		System.out.println(json);
