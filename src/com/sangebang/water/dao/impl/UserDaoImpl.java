@@ -170,12 +170,12 @@ public class UserDaoImpl implements UserDao{
 		return userlist;
 	}
 
-	public List<User> findAllByName(String Type, String SearchName) {
+	public List<User> findAllByName(String Type,String sign ,String SearchName) {
 		List<User> userlist = new CopyOnWriteArrayList<User>();
 		Connection con = DBHelp.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("select * from userinfo where "+Type+SearchName);
-//			ps.setString(1, SearchName);
+			PreparedStatement ps = con.prepareStatement("select * from userinfo where "+Type+sign+"?");
+			ps.setString(1, SearchName);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				User u = new User();

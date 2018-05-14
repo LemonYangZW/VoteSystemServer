@@ -44,6 +44,16 @@
     <servlet-name>UpdateStatus</servlet-name>
     <servlet-class>com.sangebang.water.servlet.UpdateStatus</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AdminLogin</servlet-name>
+    <servlet-class>com.sangebang.water.servlet.AdminLogin</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>toReview</servlet-name>
+    <servlet-class>com.sangebang.water.servlet.toReview</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -77,6 +87,14 @@
   <servlet-mapping>
     <servlet-name>UpdateStatus</servlet-name>
     <url-pattern>/UpdateStatus.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AdminLogin</servlet-name>
+    <url-pattern>/AdminLogin.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>toReview</servlet-name>
+    <url-pattern>/toReview.do</url-pattern>
   </servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

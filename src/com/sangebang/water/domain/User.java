@@ -17,7 +17,7 @@ public class User {
 	private String phone;		//发布人电话
 	private String wxname;		//微信
 	private Timestamp tm;		//发布时间
-	private String status;		//审核状态(待审核，审核通过，暂停，停止)
+	private String status;		//审核状态(待审核，审核通过，暂停，停止,审核不通过)
 	private double price;		//单价
 	private String url;				//投票链接
 	public String getUrl() {

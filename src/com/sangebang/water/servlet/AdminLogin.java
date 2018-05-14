@@ -1,24 +1,14 @@
 package com.sangebang.water.servlet;
 
 import java.io.IOException;
-import java.sql.Timestamp;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.sangebang.water.dao.MessageDao;
-import com.sangebang.water.dao.UserDao;
-import com.sangebang.water.dao.impl.MessageImpl;
-import com.sangebang.water.dao.impl.UserDaoImpl;
-import com.sangebang.water.domain.Message;
-
-import com.sangebang.water.dao.UserDao;
-import com.sangebang.water.dao.impl.UserDaoImpl;
-
-public class UpdateStatus extends HttpServlet {
+public class AdminLogin extends HttpServlet {
 
 	/**
 	 * The doGet method of the servlet. <br>
@@ -32,7 +22,7 @@ public class UpdateStatus extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doPost(request, response);
+		doGet(request, response);
 	}
 
 	/**
@@ -47,29 +37,15 @@ public class UpdateStatus extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-<<<<<<< HEAD
-		String tid=request.getParameter("tid");
-		String status = request.getParameter("statuts");
-		UserDao userdao=new UserDaoImpl();
-		MessageDao mesdao=new MessageImpl();
-		HttpSession session = request.getSession();
-		 
-		userdao.UpdateStatus(tid, status);
+		String username = request.getParameter("userName");
+		String password = request.getParameter("password");
 		
-		Timestamp timeStamp = new Timestamp(new java.util.Date().getTime());
-		Message mes=new Message();
-		mes.setReceive((String)session.getAttribute("openid"));
-		mes.setContent(status);
-		mes.setTm(timeStamp);
 		
-		mesdao.add(mes);
-=======
-		String tid = request.getParameter("tid");
-		String status = request.getParameter("status");
-		System.out.println("upstatus");
-		UserDao userdao=new UserDaoImpl();
-		userdao.UpdateStatus(tid, status);
->>>>>>> 52dedb969ee5c8a4bc08c8b0df1851dad98694f0
+		if(username.equals("Admin")&&password.equals("whbx123!@#")){
+			request.getRequestDispatcher("toReview.do").forward(request, response);
+		}else{
+			request.getRequestDispatcher("error.jsp").forward(request, response);
+		}
 	}
 
 }

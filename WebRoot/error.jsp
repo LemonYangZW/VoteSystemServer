@@ -9,7 +9,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>My JSP 'error.jsp' starting page</title>
+    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -18,13 +19,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+
   </head>
   
   <body>
-  <form action="AdminLogin.do" method="post">
-   	用户名:<input type="text" name="userName"/>
-   	密码：<input type="password" name="password"/>
-   <input type="submit" value="提交"/>
-  </form>
+    <script type="text/javascript">
+    	alert("账号或者密码错误");
+    	window.location='index.jsp';
+    </script>
   </body>
 </html>
