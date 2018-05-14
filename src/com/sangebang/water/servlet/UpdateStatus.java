@@ -47,7 +47,6 @@ public class UpdateStatus extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-<<<<<<< HEAD
 		String tid=request.getParameter("tid");
 		String status = request.getParameter("statuts");
 		UserDao userdao=new UserDaoImpl();
@@ -63,13 +62,6 @@ public class UpdateStatus extends HttpServlet {
 		mes.setTm(timeStamp);
 		
 		mesdao.add(mes);
-=======
-		String tid = request.getParameter("tid");
-		String status = request.getParameter("status");
-		System.out.println("upstatus");
-		UserDao userdao=new UserDaoImpl();
-		userdao.UpdateStatus(tid, status);
->>>>>>> 52dedb969ee5c8a4bc08c8b0df1851dad98694f0
 	}
 
 }
