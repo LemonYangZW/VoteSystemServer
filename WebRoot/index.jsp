@@ -7,7 +7,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
+<<<<<<< HEAD
     <base href="https://www.333bang.com/">
+=======
+    <base href="https://www.333bang.com/VoteSystemServer/">
+>>>>>>> a2bd5d80581d6c2ca26de25430e3038efe79579e
     
     <title>My JSP 'index.jsp' starting page</title>
 	<meta http-equiv="pragma" content="no-cache">

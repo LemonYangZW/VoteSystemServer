@@ -15,9 +15,6 @@ import com.sangebang.water.dao.impl.MessageImpl;
 import com.sangebang.water.dao.impl.UserDaoImpl;
 import com.sangebang.water.domain.Message;
 
-import com.sangebang.water.dao.UserDao;
-import com.sangebang.water.dao.impl.UserDaoImpl;
-
 public class UpdateStatus extends HttpServlet {
 
 	/**
@@ -49,15 +46,12 @@ public class UpdateStatus extends HttpServlet {
 			throws ServletException, IOException {
 		String tid=request.getParameter("tid");
 		String status = request.getParameter("status");
-		System.out.println("uostatus");
-		System.out.println(tid);
-		System.out.println(status);
 		UserDao userdao=new UserDaoImpl();
 		MessageDao mesdao=new MessageImpl();
 		HttpSession session = request.getSession();
 		 
 		userdao.UpdateStatus(tid, status);
-		
+//		
 //		Timestamp timeStamp = new Timestamp(new java.util.Date().getTime());
 //		Message mes=new Message();
 //		mes.setReceive((String)session.getAttribute("openid"));
