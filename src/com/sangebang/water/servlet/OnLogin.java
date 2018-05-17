@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import redis.clients.jedis.Jedis;
 import net.sf.json.JSONObject;
 
+import com.sangebang.water.util.GetUUID;
 import com.sangebang.water.util.Login;
 
 public class OnLogin extends HttpServlet {
@@ -42,13 +44,12 @@ public class OnLogin extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html;charset=utf-8");
-		/* …Ë÷√œÏ”¶Õ∑‘ –ÌajaxøÁ”Ú∑√Œ  */
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		/* –«∫≈±Ì æÀ˘”–µƒ“Ï”Ú«Î«Û∂ºø…“‘Ω” ‹£¨ */
 		response.setHeader("Access-Control-Allow-Methods", "GET,POST");
 
+		Jedis jedis = new Jedis("193.112.185.121", 6379);
 		String code = request.getParameter("code");
+		String session_id = null;
 		String userinfo = Login.sendGet(code);
 		PrintWriter out = response.getWriter();
 		JSONObject json = JSONObject.fromObject(userinfo);
@@ -56,10 +57,28 @@ public class OnLogin extends HttpServlet {
 		String str = json.values().toString();
 		session.setAttribute("openid",str.substring(str.indexOf(',')+1, str.indexOf(']')));
 		System.out.println(str.substring(str.indexOf(',')+1, str.indexOf(']')));
-		out.write(json.toString());
+		String openidStr = str
+				.substring(str.indexOf(',') + 2, str.indexOf(']'));
+		String sessionkeyStr = str.substring(str.indexOf('[') + 1,
+				str.indexOf(','));
+		session.setAttribute("openid", openidStr);
+
+		if (jedis.exists(openidStr + sessionkeyStr)) {
+			session_id = jedis.get(openidStr + sessionkeyStr);
+			jedis.expire(openidStr + sessionkeyStr, 86400);
+			System.out.println("Â∑≤Â≠òÂú®");
+		} else {
+			jedis.set(openidStr + sessionkeyStr, GetUUID.getUUID());
+			session_id = jedis.get(openidStr + sessionkeyStr);
+			System.out.println("Êñ∞ÊèíÂÖ•");
+		}
+		String data = "{\"openid\":\"" + openidStr + "\",\"session_id\":\"" + session_id + "\"}";
+		out.write(data);
 		out.flush();
 		System.out.println(json);
 		
+		out.close();
+
 	}
 
 }

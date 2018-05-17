@@ -14,7 +14,7 @@ public class Login {
         String result = "";  
         BufferedReader in = null;  
         try {  
-            String urlNameString = "https://api.weixin.qq.com/sns/jscode2session?appid=wx9ce734396b84d8db&secret=9dcc8e83ba9d0854f29ae194b3c892cd&js_code="+code+"&grant_type=authorization_code";  
+            String urlNameString = "https://api.weixin.qq.com/sns/jscode2session?appid=wx910bf7bf9148bb9e&secret=726c3398b289f06567b0d74b88494d93&js_code="+code+"&grant_type=authorization_code";  
             URL realUrl = new URL(urlNameString);  
             // 打开和URL之间的连接  
             URLConnection connection = realUrl.openConnection();  
