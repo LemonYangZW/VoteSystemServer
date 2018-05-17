@@ -45,12 +45,17 @@ public class UpdateStatus extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String tid=request.getParameter("tid");
+<<<<<<< HEAD
 		String status = request.getParameter("status");
+=======
+		String status = request.getParameter("statuts");
+>>>>>>> parent of f2725fd... 添加登录态
 		UserDao userdao=new UserDaoImpl();
 		MessageDao mesdao=new MessageImpl();
 		HttpSession session = request.getSession();
 		 
 		userdao.UpdateStatus(tid, status);
+<<<<<<< HEAD
 //		
 //		Timestamp timeStamp = new Timestamp(new java.util.Date().getTime());
 //		Message mes=new Message();
@@ -59,6 +64,16 @@ public class UpdateStatus extends HttpServlet {
 //		mes.setTm(timeStamp);
 //		
 //		mesdao.add(mes);
+=======
+		
+		Timestamp timeStamp = new Timestamp(new java.util.Date().getTime());
+		Message mes=new Message();
+		mes.setReceive((String)session.getAttribute("openid"));
+		mes.setContent(status);
+		mes.setTm(timeStamp);
+		
+		mesdao.add(mes);
+>>>>>>> parent of f2725fd... 添加登录态
 	}
 
 }
