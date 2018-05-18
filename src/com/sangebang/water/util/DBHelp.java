@@ -8,9 +8,9 @@ import java.sql.SQLException;
 
 public class DBHelp {
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://193.112.185.121:3306/votesystem?characterEncoding=utf-8";
+	private static final String URL = "jdbc:mysql://193.112.185.121:3306/VoteSystem?characterEncoding=utf-8";
 	private static final String USER = "root";
-	private static final String PASSWORD = "Whbx123!@#";
+	private static final String PASSWORD = "Whbx123";
 
 	// 获取连接
 	public static Connection getConnection() {

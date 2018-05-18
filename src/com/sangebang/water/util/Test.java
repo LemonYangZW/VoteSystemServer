@@ -13,6 +13,6 @@ public class Test {
 		Jedis jedis=JedisHelp.getJedis();
 		jedis.ping();
 		System.out.println(jedis.ping());
-		
+		DBHelp.getConnection();
 	}
 }  
