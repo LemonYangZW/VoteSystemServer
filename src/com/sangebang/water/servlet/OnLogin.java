@@ -13,6 +13,7 @@ import redis.clients.jedis.Jedis;
 import net.sf.json.JSONObject;
 
 import com.sangebang.water.util.GetUUID;
+import com.sangebang.water.util.JedisHelp;
 import com.sangebang.water.util.Login;
 
 public class OnLogin extends HttpServlet {
@@ -46,8 +47,8 @@ public class OnLogin extends HttpServlet {
 			throws ServletException, IOException {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "GET,POST");
-
-		Jedis jedis = new Jedis("193.112.185.121", 6379);
+		Jedis jedis=JedisHelp.getJedis();
+		
 		String code = request.getParameter("code");
 		String session_id = null;
 		String userinfo = Login.sendGet(code);
