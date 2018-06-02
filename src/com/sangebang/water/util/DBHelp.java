@@ -8,32 +8,32 @@ import java.sql.SQLException;
 
 public class DBHelp {
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://193.112.185.121:3306/VoteSystem?characterEncoding=utf-8";
+	private static final String URL = "jdbc:mysql://118.24.41.227:3306/VoteSystem?characterEncoding=utf-8";
 	private static final String USER = "root";
-	private static final String PASSWORD = "Whbx123";
+	private static final String PASSWORD = "Whbx123!@#";
 
-	// »ñÈ¡Á¬½Ó
+	// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 	public static Connection getConnection() {
-		Connection con = null; // ÉùÃ÷Ò»¸öÁ¬½Ó¶ÔÏó
+		Connection con = null; // ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
 		try {
 			Class.forName(DRIVER);
-			// ×¢²áÇý¶¯
-			con = DriverManager.getConnection(URL, USER, PASSWORD); // »ñµÃÁ¬½Ó¶ÔÏó
+			// ×¢ï¿½ï¿½ï¿½ï¿½
+			con = DriverManager.getConnection(URL, USER, PASSWORD); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
 			if(!con.isClosed()){
 				System.out.println("Succeeded connecting to the Database!");
 			}
-		} catch (ClassNotFoundException e) { // ²¶»ñÇý¶¯ÀàÎÞ·¨ÕÒµ½Òì³£
+		} catch (ClassNotFoundException e) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½Òµï¿½ï¿½ì³£
 			e.printStackTrace();
-		} catch (SQLException e) { // ²¶»ñSQLÒì³£
+		} catch (SQLException e) { // ï¿½ï¿½ï¿½ï¿½SQLï¿½ì³£
 			e.printStackTrace();
 		}
 		return con;
 	}
 
-	public static void close(Connection con) {// ¹Ø±ÕÁ¬½Ó¶ÔÏó
-		if (con != null) { // Èç¹ûconnÁ¬½Ó¶ÔÏó²»Îª¿Õ
+	public static void close(Connection con) {// ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
+		if (con != null) { // ï¿½ï¿½ï¿½connï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½Îªï¿½ï¿½
 			try {
-				con.close(); // ¹Ø±ÕconnÁ¬½Ó¶ÔÏó¶ÔÏó
+				con.close(); // ï¿½Ø±ï¿½connï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
