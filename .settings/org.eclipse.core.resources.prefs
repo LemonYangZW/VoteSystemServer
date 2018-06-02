@@ -2,3 +2,5 @@ eclipse.preferences.version=1
 encoding//WebRoot/WEB-INF/jsp/Review.jsp=UTF-8
 encoding//WebRoot/index.jsp=UTF-8
 encoding//src/com/sangebang/water/servlet/OnLogin.java=UTF-8
+encoding//src/com/sangebang/water/util/RandomStringGenerator.java=UTF-8
+encoding/<project>=UTF-8

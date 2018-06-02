@@ -1,67 +1,21 @@
 package com.sangebang.water.util;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class MD5 {
-	public static String getMessageDigest(String input) {
-
-		try {
-
-			// ÄÃµ½Ò»¸öMD5×ª»»Æ÷£¨Èç¹ûÏëÒªSHA1²ÎÊı»»³É¡±SHA1¡±£©
-
-			MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-
-			// ÊäÈëµÄ×Ö·û´®×ª»»³É×Ö½ÚÊı×é
-
-			byte[] inputByteArray = input.getBytes();
-
-			// inputByteArrayÊÇÊäÈë×Ö·û´®×ª»»µÃµ½µÄ×Ö½ÚÊı×é
-
-			messageDigest.update(inputByteArray);
-
-			// ×ª»»²¢·µ»Ø½á¹û£¬Ò²ÊÇ×Ö½ÚÊı×é£¬°üº¬16¸öÔªËØ
-
-			byte[] resultByteArray = messageDigest.digest();
-
-			// ×Ö·ûÊı×é×ª»»³É×Ö·û´®·µ»Ø
-
-			return byteArrayToHex(resultByteArray);
-
-		} catch (NoSuchAlgorithmException e) {
-
-			return null;
-
-		}
-
-	}
-
-	public static String byteArrayToHex(byte[] byteArray) {
-
-		// Ê×ÏÈ³õÊ¼»¯Ò»¸ö×Ö·ûÊı×é£¬ÓÃÀ´´æ·ÅÃ¿¸ö16½øÖÆ×Ö·û
-
-		char[] hexDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-				'A', 'B', 'C', 'D', 'E', 'F' };
-
-		// newÒ»¸ö×Ö·ûÊı×é£¬Õâ¸ö¾ÍÊÇÓÃÀ´×é³É½á¹û×Ö·û´®µÄ£¨½âÊÍÒ»ÏÂ£ºÒ»¸öbyteÊÇ°ËÎ»¶ş½øÖÆ£¬Ò²¾ÍÊÇ2Î»Ê®Áù½øÖÆ×Ö·û£¨2µÄ8´Î·½µÈÓÚ16µÄ2´Î·½£©£©
-
-		char[] resultCharArray = new char[byteArray.length * 2];
-
-		// ±éÀú×Ö½ÚÊı×é£¬Í¨¹ıÎ»ÔËËã£¨Î»ÔËËãĞ§ÂÊ¸ß£©£¬×ª»»³É×Ö·û·Åµ½×Ö·ûÊı×éÖĞÈ¥
-
-		int index = 0;
-
-		for (byte b : byteArray) {
-
-			resultCharArray[index++] = hexDigits[b >>> 4 & 0xf];
-
-			resultCharArray[index++] = hexDigits[b & 0xf];
-
-		}
-
-		// ×Ö·ûÊı×é×éºÏ³É×Ö·û´®·µ»Ø
-
-		return new String(resultCharArray);
-	}
-
+	/**
+     * ç”Ÿæˆ MD5
+     *
+     * @param data å¾…å¤„ç†æ•°æ®
+     * @return MD5ç»“æœ
+     */
+    public static String MD5(String data) throws Exception {
+        java.security.MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] array = md.digest(data.getBytes("UTF-8"));
+        StringBuilder sb = new StringBuilder();
+        for (byte item : array) {
+            sb.append(Integer.toHexString((item & 0xFF) | 0x100).substring(1, 3));
+        }
+        return sb.toString().toUpperCase();
+    }
 }

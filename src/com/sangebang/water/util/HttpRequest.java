@@ -1,120 +1,91 @@
 package com.sangebang.water.util;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.List;
-import java.util.Map;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.X509TrustManager;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
 
 public class HttpRequest {
-	public static String sendGet(String url, String param) {
-		String result = "";
-		BufferedReader in = null;
-		try {
-			String urlNameString = url + "?" + param;
-			URL realUrl = new URL(urlNameString);
-			// ´ò¿ªºÍURLÖ®¼äµÄÁ¬½Ó
-			URLConnection connection = realUrl.openConnection();
-			// ÉèÖÃÍ¨ÓÃµÄÇëÇóÊôĞÔ
-			connection.setRequestProperty("accept", "*/*");
-			connection.setRequestProperty("connection", "Keep-Alive");
-			connection.setRequestProperty("user-agent",
-					"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-			// ½¨Á¢Êµ¼ÊµÄÁ¬½Ó
-			connection.connect();
-			// »ñÈ¡ËùÓĞÏìÓ¦Í·×Ö¶Î
-			Map<String, List<String>> map = connection.getHeaderFields();
-			// ±éÀúËùÓĞµÄÏìÓ¦Í·×Ö¶Î
-			for (String key : map.keySet()) {
-				System.out.println(key + "--->" + map.get(key));
-			}
-			// ¶¨Òå BufferedReaderÊäÈëÁ÷À´¶ÁÈ¡URLµÄÏìÓ¦
-			in = new BufferedReader(new InputStreamReader(
-					connection.getInputStream()));
-			String line;
-			while ((line = in.readLine()) != null) {
-				result += line;
-			}
-		} catch (Exception e) {
-			System.out.println("·¢ËÍGETÇëÇó³öÏÖÒì³££¡" + e);
-			e.printStackTrace();
-		}
-		// Ê¹ÓÃfinally¿éÀ´¹Ø±ÕÊäÈëÁ÷
-		finally {
-			try {
-				if (in != null) {
-					in.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-		return result;
-	}
+	//è¿æ¥è¶…æ—¶æ—¶é—´ï¼Œé»˜è®¤10ç§’
+    private static final int socketTimeout = 10000;
 
+    //ä¼ è¾“è¶…æ—¶æ—¶é—´ï¼Œé»˜è®¤30ç§’
+    private static final int connectTimeout = 30000;
 	/**
-	 * ÏòÖ¸¶¨ URL ·¢ËÍPOST·½·¨µÄÇëÇó
-	 * 
-	 * @param url
-	 *            ·¢ËÍÇëÇóµÄ URL
-	 * @param param
-	 *            ÇëÇó²ÎÊı£¬ÇëÇó²ÎÊıÓ¦¸ÃÊÇ name1=value1&name2=value2 µÄĞÎÊ½¡£
-	 * @return Ëù´ú±íÔ¶³Ì×ÊÔ´µÄÏìÓ¦½á¹û
+	 * postè¯·æ±‚
+	 * @throws IOException 
+	 * @throws ClientProtocolException 
+	 * @throws NoSuchAlgorithmException 
+	 * @throws KeyStoreException 
+	 * @throws KeyManagementException 
+	 * @throws UnrecoverableKeyException 
 	 */
-	public static String sendPost(String param) {
-		PrintWriter out = null;
-		BufferedReader in = null;
-		String result = "";
-		try {
-			URL realUrl = new URL(
-					"https://api.mch.weixin.qq.com/pay/unifiedorder");
-			// ´ò¿ªºÍURLÖ®¼äµÄÁ¬½Ó
-			URLConnection conn = realUrl.openConnection();
-			// ÉèÖÃÍ¨ÓÃµÄÇëÇóÊôĞÔ
-			conn.setRequestProperty("accept", "*/*");
-			conn.setRequestProperty("connection", "Keep-Alive");
-			conn.setRequestProperty("user-agent",
-					"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-			// conn.setRequestProperty("Pragma:", "no-cache");
-			// conn.setRequestProperty("Cache-Control", "no-cache");
-			// conn.setRequestProperty("Content-Type",
-			// "text/xml;charset=utf-8");
-			// ·¢ËÍPOSTÇëÇó±ØĞëÉèÖÃÈçÏÂÁ½ĞĞ
-			conn.setDoOutput(true);
-			conn.setDoInput(true);
-			// »ñÈ¡URLConnection¶ÔÏó¶ÔÓ¦µÄÊä³öÁ÷
-			out = new PrintWriter(conn.getOutputStream());
-			// ·¢ËÍÇëÇó²ÎÊı
-			out.print(param);
-			// flushÊä³öÁ÷µÄ»º³å
-			out.flush();
-			// ¶¨ÒåBufferedReaderÊäÈëÁ÷À´¶ÁÈ¡URLµÄÏìÓ¦
-			in = new BufferedReader(
-					new InputStreamReader(conn.getInputStream()));
-			String line;
-			while ((line = in.readLine()) != null) {
-				result += line;
-			}
-		} catch (Exception e) {
-			System.out.println("·¢ËÍ POST ÇëÇó³öÏÖÒì³££¡" + e);
-			e.printStackTrace();
-		}
-		// Ê¹ÓÃfinally¿éÀ´¹Ø±ÕÊä³öÁ÷¡¢ÊäÈëÁ÷
-		finally {
-			try {
-				if (out != null) {
-					out.close();
-				}
-				if (in != null) {
-					in.close();
-				}
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return result;
+	public static String sendPost(String url, Object xmlObj) throws ClientProtocolException, IOException, UnrecoverableKeyException, KeyManagementException, KeyStoreException, NoSuchAlgorithmException {
+		
+
+        
+		HttpPost httpPost = new HttpPost(url);
+		//è§£å†³XStreamå¯¹å‡ºç°åŒä¸‹åˆ’çº¿çš„bug
+        XStream xStreamForRequestPostData = new XStream(new DomDriver("UTF-8", new XmlFriendlyNameCoder("-_", "_")));
+        xStreamForRequestPostData.alias("xml", xmlObj.getClass());
+        //å°†è¦æäº¤ç»™APIçš„æ•°æ®å¯¹è±¡è½¬æ¢æˆXMLæ ¼å¼æ•°æ®Postç»™API
+        String postDataXML = xStreamForRequestPostData.toXML(xmlObj);
+
+        //å¾—æŒ‡æ˜ä½¿ç”¨UTF-8ç¼–ç ï¼Œå¦åˆ™åˆ°APIæœåŠ¡å™¨XMLçš„ä¸­æ–‡ä¸èƒ½è¢«æˆåŠŸè¯†åˆ«
+        StringEntity postEntity = new StringEntity(postDataXML, "UTF-8");
+        httpPost.addHeader("Content-Type", "text/xml");
+        httpPost.setEntity(postEntity);
+
+        //è®¾ç½®è¯·æ±‚å™¨çš„é…ç½®
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(socketTimeout).setConnectTimeout(connectTimeout).build();
+        httpPost.setConfig(requestConfig);
+        
+        HttpClient httpClient = HttpClients.createDefault();
+        HttpResponse response = httpClient.execute(httpPost);
+        HttpEntity entity = response.getEntity();
+        String result = EntityUtils.toString(entity, "UTF-8");
+        return result;
 	}
+	/**
+	 * è‡ªå®šä¹‰è¯ä¹¦ç®¡ç†å™¨ï¼Œä¿¡ä»»æ‰€æœ‰è¯ä¹¦
+	 * @author pc
+	 *
+	 */
+	public static class MyX509TrustManager implements X509TrustManager {
+
+		public void checkClientTrusted(X509Certificate[] arg0, String arg1)
+				throws CertificateException {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void checkServerTrusted(X509Certificate[] arg0, String arg1)
+				throws CertificateException {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public X509Certificate[] getAcceptedIssuers() {
+			// TODO Auto-generated method stub
+			return null;
+		}}
 }

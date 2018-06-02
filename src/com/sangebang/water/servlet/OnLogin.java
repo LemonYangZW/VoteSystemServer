@@ -50,10 +50,12 @@ public class OnLogin extends HttpServlet {
 		Jedis jedis=JedisHelp.getJedis();
 		
 		String code = request.getParameter("code");
+		System.out.println(code);
 		String session_id = null;
 		String userinfo = Login.sendGet(code);
 		PrintWriter out = response.getWriter();
 		JSONObject json = JSONObject.fromObject(userinfo);
+		System.out.println(userinfo);
 		HttpSession session = request.getSession();
 		String str = json.values().toString();
 		session.setAttribute("openid",str.substring(str.indexOf(',')+1, str.indexOf(']')));
@@ -67,11 +69,9 @@ public class OnLogin extends HttpServlet {
 		if (jedis.exists(openidStr + sessionkeyStr)) {
 			session_id = jedis.get(openidStr + sessionkeyStr);
 			jedis.expire(openidStr + sessionkeyStr, 86400);
-			System.out.println("已存在");
 		} else {
 			jedis.set(openidStr + sessionkeyStr, GetUUID.getUUID());
 			session_id = jedis.get(openidStr + sessionkeyStr);
-			System.out.println("新插入");
 		}
 		String data = "{\"openid\":\"" + openidStr + "\",\"session_id\":\"" + session_id + "\"}";
 		out.write(data);

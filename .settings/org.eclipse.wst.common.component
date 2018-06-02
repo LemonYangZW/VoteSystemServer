@@ -2,7 +2,7 @@
     <wb-module deploy-name="VoteSystemServer">
         <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="VoteSystemServer"/>
         <property name="java-output-path" value="/VoteSystemServer/WebRoot/WEB-INF/classes"/>
+        <property name="context-root" value="VoteSystemServer"/>
     </wb-module>
 </project-modules>

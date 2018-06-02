@@ -1,5 +1,7 @@
 package com.sangebang.water.util;
 
+import java.util.Random;
+
 import redis.clients.jedis.Jedis;
 
   
@@ -9,10 +11,12 @@ import redis.clients.jedis.Jedis;
  */  
 public class Test {
 	public static void main(String[] args) {
-//		DBHelp.getConnection();
-		Jedis jedis=JedisHelp.getJedis();
-		jedis.ping();
-		System.out.println(jedis.ping());
-		DBHelp.getConnection();
-	}
+        // UUID.randomUUID().toString().replace("-","")
+        Random random = new Random(System.currentTimeMillis());
+        int value = random.nextInt();
+        while (value < 0) {
+            value = random.nextInt();
+        }
+        System.out.println(value);
+    }
 }  
